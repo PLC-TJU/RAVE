@@ -8,6 +8,8 @@
 % Training samples in order: source domain data + first 0, 30, 60, 90 of target domain
 % Test samples in order: 120, 90, 60, 30 after the target domain
 
+% Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
+
 % Algorithm list:
 % 1、CSP
 % 2. MDRM
