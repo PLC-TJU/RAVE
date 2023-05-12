@@ -14,10 +14,10 @@ end
 trainData=ERPs_Filter(traindata,freqs,[],times);
 testData=ERPs_Filter(testdata,freqs,[],times);
 
-csp_filter=CSP(trainData,'label',trainlabel);
-trainfea=CSP(trainData,'csp_filter',csp_filter);
-testfea=CSP(testData,'csp_filter',csp_filter);
-% [trainfea,testfea]=CSPfeature(trainData,trainlabel,testData);
+% csp_filter=CSP(trainData,'label',trainlabel);
+% trainfea=CSP(trainData,'csp_filter',csp_filter);
+% testfea=CSP(testData,'csp_filter',csp_filter);
+[trainfea,testfea]=CSPfeature(trainData,trainlabel,testData);
 
 switch upper(Classifier)
     case 'SVM'
