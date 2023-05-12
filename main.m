@@ -27,7 +27,7 @@ resttime=fs*0+1:fs*3;
 tasktime=fs*3+1:fs*7;
 
 trainNum=[30,60,90];
-testAcc=nan(9,length(trainNum),length(files));
+testAcc=nan(7,length(trainNum),length(files));
 for subject=1:length(files)
     target=load([filepath,'\',files(subject).name]);
     dataTask=target.data(:,tasktime,:);
