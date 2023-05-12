@@ -20,7 +20,7 @@
 % 7、RIGEL
 
 clc;
-filepath='..\dataset';
+filepath='.\dataset';
 files=dir([filepath,'\*.mat']);
 
 fs=250;
