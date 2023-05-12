@@ -22,13 +22,13 @@ if nargin < 3
     channel=[];
 end
 if nargin < 2
-    error('ERPs_Filter函数的输入参数不够！');
+    error('Not enough input parameters for the ERPs_Filter function!');
 end
 
 %Channel Selection
 if ~isempty(channel) 
     if channel(end)>size(data,1)
-        warning('所选导联超出数据限制，已取消导联筛选！')
+        warning('The selected channels exceeded the data limit and the channels filter has been removed!')
     end
     data=data(channel,:,:);
 end
@@ -41,7 +41,7 @@ if ~isempty(timewindow)
     if timewindow(2)*fs>size(data,2)
         
         timewindow(2)=size(data,2)/fs;
-        warning(['所选时间窗超出数据限制，已自动调整时间窗为:',num2str(timewindow(1)),'-',num2str(timewindow(2)),'s'])
+        warning(['The selected time window exceeds the data limit and has been automatically adjusted to: ',num2str(timewindow(1)),'-',num2str(timewindow(2)),'s'])
     end
     data=data(:,round(timewindow(1)* fs) + 1:round(timewindow(2) * fs),:);
 end
