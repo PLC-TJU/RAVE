@@ -126,7 +126,7 @@ for t=1:size(timewindows,1)
 end
 
 % LASSO
-[B,FitInfo] = lasso(trainFea,allLabel,'Alpha',1,'Standardize',true);
+[B,FitInfo] = lasso(trainFea,allLabel,'CV',5,'Alpha',1,'Standardize',true);
 idxMinMSE = FitInfo.IndexMinMSE;
 coefMinMSE = B(:,idxMinMSE);
 index=find(coefMinMSE);
