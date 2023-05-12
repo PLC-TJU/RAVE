@@ -19,7 +19,7 @@
 % 7、RIGEL
 
 clear;clc;
-filepath='..\dataset';
+filepath='.\dataset';
 files=dir([filepath,'\*D2.mat']);
 
 fs=250;
