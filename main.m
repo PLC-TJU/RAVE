@@ -7,6 +7,8 @@
 % Training samples in order: first 30, 60, 90
 % Test samples in order: back 90, 60, 30
 
+% Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
+    
 % List of algorithms:
 % 1, CSP
 % 2. MDRM
