@@ -47,8 +47,8 @@ for subject=1:length(files)
         
         DAmethod='None';
         % 1.CSP
-        % 2.MDM
-        Algorithms={'CSP','MDM'};
+        % 2.MDRM
+        Algorithms={'CSP','MDRM'};
         for AlgNum=1:length(Algorithms)
             tic;
             [Para_sort,ValiAcc_sort]=ParaSelcet(traindataTask,trainlabel,traindataRest,Algorithms{AlgNum},[],0);
@@ -100,7 +100,7 @@ for subject=1:length(files)
 
         % 6.RA-MDRM
         DAmethod='RA';
-        Algorithm='RA-MDM';
+        Algorithm='RA-MDRM';
         AlgNum=6;
         tic;
         [Para_sort,ValiAcc_sort]=ParaSelcet(traindataTask,trainlabel,traindataRest,Algorithm,[],0);

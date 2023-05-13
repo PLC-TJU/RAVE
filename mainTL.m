@@ -55,8 +55,8 @@ for subject=1:length(files)/2
         
         DAmethod='None';
         % 1.CSP
-        % 2.MDM
-        Algorithms={'CSP','MDM'};
+        % 2.MDRM
+        Algorithms={'CSP','MDRM'};
         for AlgNum=1:length(Algorithms)
             tic;
             if trainNum(tN)==0
@@ -122,9 +122,9 @@ for subject=1:length(files)/2
         Info.ValiAcc_sort{AlgNum,tN,subject}=[];
         Info.cost(AlgNum,tN,subject)=toc;
 
-        % 6.RA-MDM
+        % 6.RA-MDRM
         DAmethod='RA';
-        Algorithm='RA-MDM';
+        Algorithm='RA-MDRM';
         AlgNum=6;
         tic;
         if trainNum(tN)==0
