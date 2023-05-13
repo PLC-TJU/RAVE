@@ -1,6 +1,6 @@
 %% main
-%  Author: Pan Lincong
-%  Edition date: 22 April 2023
+% Author: Pan Lincong
+% Edition date: 22 April 2023
 
 % Non-cross-session classification - gradually increase the training sample with a fixed sequence
 % Calculated only for the target dataset, i.e., using the Session 2 dataset
@@ -10,13 +10,13 @@
 % Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
     
 % List of algorithms:
-% 1, CSP
+% 1. CSP
 % 2. MDRM
 % 3. CTFSP
-% 4、EA-CSP
-% 5, EA-CTFSP
-% 6、RA-MDRM
-% 7、RIGEL
+% 4. EA-CSP
+% 5. EA-CTFSP
+% 6. RA-MDRM
+% 7. RIGEL
 
 clear;clc;
 filepath='.\dataset';

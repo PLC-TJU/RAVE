@@ -7,14 +7,14 @@
 
 %% Parameter Description
 % input
-% traindata: The task state samples of the training set, number of leads * number of time points * number of samples.
+% traindata: The task state samples of the training set, number of channels * number of time points * number of samples.
 % trainlabel: the label of the training set
-% testdata: task state samples of the test set, number of leads * number of time points * number of samples.
+% testdata: task state samples of the test set, number of channels * number of time points * number of samples.
 
 % optional inputs
 % paraSet: spatial-temporal-frequency parameter, cell:3*1
 % DAmethod: Data pre-alignment method, ['None'/'EA']
-% sData: All task state samples of the source dataset, cell{s} or 3D matrix:number of leads * number of time points * number of samples.
+% sData: All task state samples of the source dataset, cell{s} or 3D matrix:number of channels * number of time points * number of samples.
 % sLabel: Corresponding label of all samples in the source dataset, cell{s} or 1D vector:number of samples*1.
 
 % output

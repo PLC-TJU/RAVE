@@ -11,13 +11,13 @@
 % Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
 
 % Algorithm list:
-% 1、CSP
+% 1. CSP
 % 2. MDRM
-% 3、CTFSP
-% 4、EA-CSP
-% 5, EA-CTFSP
-% 6、RA-MDRM
-% 7、RIGEL
+% 3. CTFSP
+% 4. EA-CSP
+% 5. EA-CTFSP
+% 6. RA-MDRM
+% 7. RIGEL
 
 clc;
 filepath='.\dataset';
