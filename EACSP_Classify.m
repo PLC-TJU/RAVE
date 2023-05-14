@@ -3,7 +3,7 @@
 %  Edition date: 22 April 2023
 function [trainAcc,testAcc]=EACSP_Classify(traindata,testdata,trainlabel,testlabel,freqs,times,Classifier)
 if nargin<7
-    Classifier='All';
+    Classifier='SVM';
 end
 if nargin<6 || isempty(times)
     times=[0,4];
@@ -24,17 +24,6 @@ switch upper(Classifier)
         labelPred=predict(SVM,testfea);
         testAcc.SVM=100*mean(eq(labelPred,testlabel));
     case 'LDA'
-        LDAModel=ldatrain(trainfea, trainlabel);
-        [~,trainAcc.LDA]=ldapredict(trainfea,LDAModel,trainlabel);
-        [~,testAcc.LDA]=ldapredict(testfea,LDAModel,testlabel);
-    case 'ALL'
-        %SVM
-        SVMmodel=libsvmtrain(trainlabel,trainfea,'-t 0 -c 1 -q');
-        [~,acc,~]=libsvmpredict(trainlabel,trainfea,SVMmodel);
-        trainAcc.SVM=acc(1);
-        [~,acc,~]=libsvmpredict(testlabel,testfea,SVMmodel);
-        testAcc.SVM=acc(1);
-        %LDA
         LDAModel=ldatrain(trainfea, trainlabel);
         [~,trainAcc.LDA]=ldapredict(trainfea,LDAModel,trainlabel);
         [~,testAcc.LDA]=ldapredict(testfea,LDAModel,testlabel);

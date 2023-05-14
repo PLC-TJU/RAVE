@@ -165,4 +165,4 @@ for subject=1:length(files)/2
 
     end
 end
-save('ResultOfTL','testAcc','Info');
+save(['ResultOfTL',datestr(now,30)],'testAcc','Info');

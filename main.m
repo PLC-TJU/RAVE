@@ -126,4 +126,4 @@ for subject=1:length(files)
 
     end
 end
-save('Result','testAcc','Info');
+save(['Result',datestr(now,30)],'testAcc','Info');

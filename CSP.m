@@ -7,15 +7,15 @@
 % csp_filter, output CSP/RCSP extracted features
 % otherdata;otherlabel,output RCSP filter
 
-%eg.
-%csp_filter=CSP(trainData,'label',trainLabel);
-%rcsp_filter=CSP(trainData,'label',trainLabel,'otherdata',otherdata,'otherlabel',otherlabel);
+% eg.
+% csp_filter=CSP(trainData,'label',trainLabel);
+% rcsp_filter=CSP(trainData,'label',trainLabel,'otherdata',otherdata,'otherlabel',otherlabel);
 
 
 function output=CSP(data,p1,v1,p2,v2,p3,v3)
 csp_filter=[];
 if nargin < 2
-    error('CSP函数输入参数不够！')
+    error('Not enough input parameters for CSP function!')
 else
     for i = 2:2:nargin
         Param = eval(['p',int2str((i-2)/2 +1)]);
