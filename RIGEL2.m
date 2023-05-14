@@ -28,11 +28,8 @@ if ~exist('sDataTask','var')
     sDataTask=[];sDataRest=[];sLabel=[];
 end
 
-MaxNum=441;
 ParaAll=paraSet;
-if size(ParaAll,1)<MaxNum
-    MaxNum=size(ParaAll,1);
-end
+MaxNum=size(ParaAll,1);
 
 labelPre=nan(size(testdata_task,3),MaxNum);
 parfor num=1:MaxNum
