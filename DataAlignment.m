@@ -28,7 +28,7 @@ function [trainData,testData,P]=DataAlignment(method,traindata,testdata,varargin
 % P: Projection matrix for data alignment, typically channels*channels
 
 % 解析成对出现的参数名/参数值
-[restdata1,restdata2,testFlag,P] = parseInputs(varargin{:});
+[restdata1,~,testFlag,P] = parseInputs(varargin{:});
 
 if isempty(testdata) && testFlag
     error('testdata cannot be empty when testFlag is not 0!');
