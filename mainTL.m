@@ -11,6 +11,9 @@
 % Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
 
 % Algorithm list:
+% Note: Methods 1, 2, 4, and 6 use a parameter pre-optimization method (all samples in session 1
+% are used as the training/validation set, and samples with known labels in session 2 are used as
+% the validation set). Since the validation set is fixed, there is no need to run multiple times.
 % 1. CSP
 % 2. MDRM
 % 3. CTFSP

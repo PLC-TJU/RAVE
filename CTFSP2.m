@@ -30,7 +30,6 @@ if nargin<5
     DAmethod='None';
 end
 
-fs=250;
 if ~exist('paraSet','var') || isempty(paraSet)
     % This parameter setting is consistent with the original literature
     timewindows=[0,2.5;0.5,3;1,3.5];
@@ -46,92 +45,105 @@ else
     freqsbands=unique(freqsbands,'rows');
 end
 
-trainFea=[];
-testFea=[];
-for t=1:size(timewindows,1)
-    for f=1:size(freqsbands,1)
-        tw=timewindows(t,:);
-        fb=freqsbands(f,:);    
-        if ~isempty(sData)
-            if iscell(sData)
-                sDataAll=[];sLabAll=[];
-                sM=nan(size(sData{1},1),size(sData{1},1),length(sData));
-                sCov=cell(length(sData),1);
-                for s=1:length(sData)
-                    sdata=ERPs_Filter(sData{s},fb,[],tw,fs);
-                    switch upper(DAmethod)
-                        case 'EA'
-                            sCov{s}=covariances(sdata);
-                            sM(:,:,s)=mean(sCov{s},3);
-                            for i=1:size(sdata,3)
-                                sdata(:,:,i)=sM(:,:,s)^(-0.5)*sdata(:,:,i);
-                            end
-                        otherwise
-                    end
-
-                    sDataAll=cat(3,sDataAll,sdata);
-                    sLabAll=cat(1,sLabAll,sLabel{s});
-                end
-                if isempty(traindata) && s>1
-                    M=mean(sM,3);
-                else
-                    M=sM;
-                end
-            else
-                sdata=ERPs_Filter(sData,fb,[],tw,fs);
-                switch upper(DAmethod)
-                    case 'EA'
-                        sCov=covariances(sdata);
-                        M=mean(sCov,3);
-                        sDataAll=nan(size(sdata));
-                        for i=1:size(sdata,3)
-                            sDataAll(:,:,i)=M^(-0.5)*sdata(:,:,i);
-                        end
-                    otherwise
-                        sDataAll=sdata;
-                end
-                sLabAll=sLabel;
-            end
-        else
-            sDataAll=[];sLabAll=[];
-        end
-        if ~isempty(traindata)
-            trainData=ERPs_Filter(traindata,fb,[],tw,fs);
-            switch upper(DAmethod)
-                case 'EA'
-                    Cov=covariances(trainData);
-                    M=mean(Cov,3);
-                    for i=1:size(trainData,3)
-                        trainData(:,:,i)=M^(-0.5)*trainData(:,:,i);
-                    end
-                otherwise
-            end
-        else
-            trainData=[];trainlabel=[];
-        end
-        allData=cat(3,trainData,sDataAll);
-        allLabel=cat(1,trainlabel,sLabAll);
-        testData=ERPs_Filter(testdata,fb,[],tw,fs);   
-        switch upper(DAmethod)
-            case 'EA'
-                for i=1:size(testData,3)
-                    testData(:,:,i)=M^(-0.5)*testData(:,:,i);
-                end
-            otherwise
-        end       
-        [trainfea,testfea]=CSPfeature(allData,allLabel,testData);
-        trainFea=cat(2,trainFea,trainfea);
-        testFea=cat(2,testFea,testfea);
+trainfea=cell(size(timewindows,1)*size(freqsbands,1),1);
+testfea=cell(size(timewindows,1)*size(freqsbands,1),1);
+allLabel=cell(size(timewindows,1)*size(freqsbands,1),1);
+parfor n=1:size(timewindows,1)*size(freqsbands,1)
+    f=mod(n,size(freqsbands,1));
+    t=ceil(n/size(freqsbands,1));
+    if f==0
+        f=size(freqsbands,1);
     end
+    tw=timewindows(t,:);
+    fb=freqsbands(f,:);
+    [trainfea{n},testfea{n},allLabel{n}]=subCTFSP(tw,fb,traindata,trainlabel,testdata,DAmethod,sData,sLabel);
 end
 
+trainFea=[];
+testFea=[];
+for n=1:size(timewindows,1)*size(freqsbands,1)
+    trainFea=cat(2,trainFea,trainfea{n});
+    testFea=cat(2,testFea,testfea{n});
+end
 % LASSO
 % [B,FitInfo] = lasso(trainFea,allLabel,'CV',5,'Alpha',1,'Standardize',true);
 % idxMinMSE = FitInfo.IndexMinMSE;
 % coefMinMSE = B(:,idxMinMSE);
-B = lasso(trainFea,allLabel,'Alpha',1,'Standardize',true);
+B = lasso(trainFea,allLabel{1},'Alpha',1,'Standardize',true);
 coefMinMSE = B(:,1);
 
 index=find(coefMinMSE);
 trainFeaSelect=trainFea(:,index);
 testFeaSelect=testFea(:,index);
+end
+
+function  [trainfea,testfea,allLabel]=subCTFSP(tw,fb,traindata,trainlabel,testdata,DAmethod,sData,sLabel)
+fs=250;
+if ~isempty(sData)
+    if iscell(sData)
+        sDataAll=[];sLabAll=[];
+        sM=nan(size(sData{1},1),size(sData{1},1),length(sData));
+        sCov=cell(length(sData),1);
+        for s=1:length(sData)
+            sdata=ERPs_Filter(sData{s},fb,[],tw,fs);
+            switch upper(DAmethod)
+                case 'EA'
+                    sCov{s}=covariances(sdata);
+                    sM(:,:,s)=mean(sCov{s},3);
+                    for i=1:size(sdata,3)
+                        sdata(:,:,i)=sM(:,:,s)^(-0.5)*sdata(:,:,i);
+                    end
+                otherwise
+            end
+            sDataAll=cat(3,sDataAll,sdata);
+            sLabAll=cat(1,sLabAll,sLabel{s});
+        end
+        if isempty(traindata) && s>1
+            M=mean(sM,3);
+        else
+            M=sM;
+        end
+    else
+        sdata=ERPs_Filter(sData,fb,[],tw,fs);
+        switch upper(DAmethod)
+            case 'EA'
+                sCov=covariances(sdata);
+                M=mean(sCov,3);
+                sDataAll=nan(size(sdata));
+                for i=1:size(sdata,3)
+                    sDataAll(:,:,i)=M^(-0.5)*sdata(:,:,i);
+                end
+            otherwise
+                sDataAll=sdata;
+        end
+        sLabAll=sLabel;
+    end
+else
+    sDataAll=[];sLabAll=[];
+end
+if ~isempty(traindata)
+    trainData=ERPs_Filter(traindata,fb,[],tw,fs);
+    switch upper(DAmethod)
+        case 'EA'
+            Cov=covariances(trainData);
+            M=mean(Cov,3);
+            for i=1:size(trainData,3)
+                trainData(:,:,i)=M^(-0.5)*trainData(:,:,i);
+            end
+        otherwise
+    end
+else
+    trainData=[];trainlabel=[];
+end
+allData=cat(3,trainData,sDataAll);
+allLabel=cat(1,trainlabel,sLabAll);
+testData=ERPs_Filter(testdata,fb,[],tw,fs);
+switch upper(DAmethod)
+    case 'EA'
+        for i=1:size(testData,3)
+            testData(:,:,i)=M^(-0.5)*testData(:,:,i);
+        end
+    otherwise
+end
+[trainfea,testfea]=CSPfeature(allData,allLabel,testData);
+end
