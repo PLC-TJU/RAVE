@@ -10,6 +10,8 @@
 % Need the covariance toolbox: https://github.com/alexandrebarachant/covariancetoolbox
     
 % List of algorithms:
+% Note: Methods 1, 2, 4, and 6 use a parameter pre-optimization method based on cross-validation 
+% of the training set and should be run multiple times to take the average value.
 % 1. CSP
 % 2. MDRM
 % 3. CTFSP
