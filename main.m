@@ -18,7 +18,7 @@
 % 4. EA-CSP
 % 5. EA-CTFSP
 % 6. RA-MDRM
-% 7. RIGEL
+% 7. RIGEL/RAVE
 
 clear;clc;
 filepath='.\dataset';
@@ -116,7 +116,7 @@ for subject=1:length(files)
         Info.ValiAcc_sort{AlgNum,tN,subject}=ValiAcc_sort;
         Info.cost(AlgNum,tN,subject)=toc;
 
-        % 7.RIGEL
+        % 7.RIGEL/RAVE
         AlgNum=7;
         Algorithm='RIGEL';
         tic;
