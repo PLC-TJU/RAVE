@@ -1,2 +1,2 @@
-# RIGEL
-Riemannian geometry-based ensemble learning (RIGEL)
+# RAVE
+Riemannian geometry-based adaptive boosting and voting ensemble (RAVE) algorithm
