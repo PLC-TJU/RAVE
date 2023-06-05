@@ -20,7 +20,7 @@
 % 4. EA-CSP
 % 5. EA-CTFSP
 % 6. RA-MDRM
-% 7. RIGEL
+% 7. RIGEL/RAVE
 
 clc;
 filepath='.\dataset';
@@ -150,7 +150,7 @@ for subject=1:length(files)/2
         Info.cost(AlgNum,tN,subject)=toc;
 
 
-        % 7.RIGEL
+        % 7.RIGEL/RAVE
         AlgNum=7;
         Algorithm='RIGEL';
         tic;
