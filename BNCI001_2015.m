@@ -1,7 +1,7 @@
 %% BNCI 001-2014
 function [data1,label1,data2,label2]=BNCI001_2015(ID)
 
-path='E:\CoreyLin\dataset\BNCI001-2015';
+path='dataset\BNCI001-2015';
 
 if ID<10
     file1=[path,'\S0',num2str(ID),'A.mat'];
