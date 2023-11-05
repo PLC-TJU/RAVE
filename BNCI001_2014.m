@@ -1,7 +1,7 @@
 %% BNCI 001-2014
 function [data1,label1,data2,label2]=BNCI001_2014(ID)
 
-path='E:\CoreyLin\dataset\BNCI001-2014';
+path='dataset\BNCI001-2014';
 
 % session 1
 load([path,'\A0',num2str(ID),'T.mat'],'data');
