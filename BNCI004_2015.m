@@ -1,7 +1,7 @@
 %% BNCI 001-2014
 function [data1,label1,data2,label2]=BNCI004_2015(ID)
 
-path='I:\dataset\BNCI\004-2015';
+path='dataset\BNCI004-2014';
 name={'A','C','D','E','F','G','H','J','L'};
 file=[path,'\',name{ID},'.mat'];
 load(file,'data');
