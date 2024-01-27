@@ -41,8 +41,8 @@ freqs=paramSet(:,3);
 labelType=unique(Label);
 MI_left=Data(:,:,Label==labelType(1));
 MI_right=Data(:,:,Label==labelType(2));
-Rest_left=RestData(:,:,Label==1);
-Rest_right=RestData(:,:,Label==2);
+Rest_left=RestData(:,:,Label==labelType(1));
+Rest_right=RestData(:,:,Label==labelType(2));
 
 trainInd=1:size(MI_left,3);
 for cv=1:fold
