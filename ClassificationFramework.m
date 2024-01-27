@@ -22,7 +22,7 @@
 % DAmethod: data alignment method, the data alignment method. ['None'/'EA'/'RA'], default is 'None'.
 % Cmethod: classification method, the classification method. ['CSP','CTFSP','MDRM','TSLDA'], default is 'CSP'.
 
-function testAcc=ClassificationFramework(sData,sDataRest,sLabel,traindata,traindataRest,trainlabel,...
+function [testAcc,labelPred]=ClassificationFramework(sData,sDataRest,sLabel,traindata,traindataRest,trainlabel,...
                                  testdata,testdataRest,testlabel,DAmethod,Cmethod)
 if ~exist('DAmethod','var') || isempty(DAmethod)
     DAmethod='None';
@@ -102,7 +102,7 @@ switch upper(Cmethod)
         labelPred = mdm(covTest,covTrainAll,trainlaball);
         testAcc=100*mean(eq(labelPred,testlabel));
     case {'RAMDRM','RA-MDRM','RA_MDRM','RAMDM','RA-MDM','RA_MDM'}
-        testAcc=RAMDRM(traindatall,traindatallRest,trainlaball,testdata,testdataRest,testlabel);
+        [testAcc,labelPred]=RAMDRM(traindatall,traindatallRest,trainlaball,testdata,testdataRest,testlabel);
     case {'TSLDA','RA-TSLDA','RATSLDA','RA_TSLDA'}
         covTest=covariances(testdata);
         covTrainAll=covariances(traindatall);
@@ -111,5 +111,3 @@ switch upper(Cmethod)
 end
 
 end
-
-
